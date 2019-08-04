@@ -7,8 +7,9 @@ cashier_dict = {}
 cashier_list = []
 
 def add_item(item,price,q):
-	cashier_list.append([item,price,q])
-	cashier_dict[item] = cashier_list.pop()
+	cashier_list.append({'name': item,
+						'price': price,
+						'quantity': q})
 
 def show_receipt():
 	print("""
@@ -16,17 +17,18 @@ def show_receipt():
 	=========================
 	........RECEIPT..........
 	=========================
-
 	""")
+
 	time.sleep(2)
-	for value in cashier_dict.values():
-		total_per_item = int(value[2]) * float(value[1])
-		print("{} - Quantity: ({}) - Total: {} KWD".format(value[0].upper(),value[2],round(total_per_item,3)))
+
+	for item in cashier_list:
+		total_per_item = int(item['quantity']) * float(item['price'])
+		print("{} - Quantity: ({}) - Total: {} KWD".format(item['name'].upper(),item['quantity'],round(total_per_item,3)))
 
 	total = 0
 
-	for value in cashier_dict.values():
-		total += (int(value[2]) * float(value[1]))
+	for value in cashier_list:
+		total += (int(value['quantity']) * float(value['price']))
 
 	print("""
 
